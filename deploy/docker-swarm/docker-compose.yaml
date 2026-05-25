@@ -118,6 +118,9 @@ services:
   signoz:
     !!merge <<: *db-depend
     image: signoz/signoz:v0.125.1
+    networks:
+      - signoz-net
+      - proxy_net
     ports:
       - "8083:8080" # signoz port
     volumes:
@@ -188,6 +191,9 @@ services:
 networks:
   signoz-net:
     name: signoz-net
+  proxy_net:
+    external: true
+    driver: overlay
 volumes:
   clickhouse:
     name: signoz-clickhouse
