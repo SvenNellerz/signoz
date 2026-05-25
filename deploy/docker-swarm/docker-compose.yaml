@@ -78,7 +78,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - ../common/clickhouse/user_scripts:/var/lib/clickhouse/user_scripts/
+      - clickhouse-user-scripts:/var/lib/clickhouse/user_scripts/
   zookeeper-1:
     !!merge <<: *zookeeper-defaults
     # ports:
@@ -113,7 +113,7 @@ services:
         target: /etc/clickhouse-server/config.d/cluster.xml
     volumes:
       - clickhouse:/var/lib/clickhouse/
-      - ../common/clickhouse/user_scripts:/var/lib/clickhouse/user_scripts/
+      - clickhouse-user-scripts:/var/lib/clickhouse/user_scripts/
       # - ../common/clickhouse/storage.xml:/etc/clickhouse-server/config.d/storage.xml
   signoz:
     !!merge <<: *db-depend
@@ -191,6 +191,8 @@ networks:
 volumes:
   clickhouse:
     name: signoz-clickhouse
+  clickhouse-user-scripts:
+    name: signoz-clickhouse-user-scripts
   sqlite:
     name: signoz-sqlite
   zookeeper-1:
